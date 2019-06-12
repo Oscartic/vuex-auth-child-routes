@@ -9,8 +9,9 @@
                 autocomplete="off"
                 v-model="user.email"
                 v-validate="'required|email'"
+                :state="validateState('email')"
                 name="email"
-                placeholder="Introduce tu email">
+                placeholder="Introduce el email admin@vue.com">
             </b-form-input>
             <b-form-invalid-feedback>
                 {{ errors.first('email') }}
@@ -25,8 +26,9 @@
                 autocomplete="off"
                 v-model="user.password"
                 v-validate="'required|min:6'"
-                name="Password"
-                placeholder="Introduce tu password">
+                :state="validateState('password')"
+                name="password"
+                placeholder="Introduce el password @Password1">
             </b-form-input>
             <b-form-invalid-feedback>
                 {{ errors.first('password') }}
@@ -45,7 +47,11 @@
 </template>
 
 <script>
+
+    import validateMixin from '@/mixins/validation'
+
     export default {
+        mixins: [validateMixin],
         props: {
             user: {
                 type: Object,
