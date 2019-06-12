@@ -5,3 +5,13 @@ Vue.use(VeeValidate, {
     fieldsBagName: 'veeFields'
 })
 Validator.localize('es', validatorEs)
+
+// extend some validation custom 
+Validator.extend('strength_password', {
+    getMessage: field => `El campo ${field} debe contener al menos: 1 letra mayúscula, 1 letra minúscula, 1 número y un carácter especial (por ejemplo,. _ &? etc.)
+    `,
+      validate: value => {
+        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+        return strongRegex.test(value);
+    }
+})
